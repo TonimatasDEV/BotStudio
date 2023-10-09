@@ -1,21 +1,34 @@
 package dev.tonimatas;
 
-import dev.tonimatas.listeners.Test;
+import dev.tonimatas.listeners.GuildMemberJoinListener;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        JDABuilder builder = JDABuilder.createDefault("MTA3NDM0MTcwNjc4ODUwMzU2Mw.GdHm28.SOLSGzM0slM1RiswKHoTrPLatpe84TJ7a1dNtc");
+        File file = new File(System.getProperty("user.dir") + "\\file.txt");
 
-        builder.disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE, CacheFlag.ACTIVITY);
-        builder.disableIntents(GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_MESSAGE_TYPING);
+        Scanner scanner;
+
+        try {
+            scanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        JDABuilder builder = JDABuilder.createDefault(scanner.next());
+
+
+        builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.setBulkDeleteSplittingEnabled(false);
-        builder.setActivity(Activity.playing("Starting"));
 
-        builder.addEventListeners(new Test());
+        builder.addEventListeners(new GuildMemberJoinListener());
+        builder.setActivity(Activity.playing("Bot The Game"));
 
         builder.build();
     }
