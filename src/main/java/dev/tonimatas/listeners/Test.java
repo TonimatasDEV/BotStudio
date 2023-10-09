@@ -1,4 +1,4 @@
-package net.tonimatasdev.listeners;
+package dev.tonimatas.listeners;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
