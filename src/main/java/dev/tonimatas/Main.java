@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File(System.getProperty("user.dir") + "\\file.txt");
+        File file = new File(System.getProperty("user.dir") + "\\key.txt");
 
         Scanner scanner;
 
