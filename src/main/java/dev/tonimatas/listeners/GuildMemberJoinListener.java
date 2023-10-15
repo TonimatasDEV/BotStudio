@@ -16,5 +16,7 @@ public class GuildMemberJoinListener extends ListenerAdapter {
         Role role = event.getGuild().getRoleById("835907987641729064");
         if (role == null) return;
         event.getGuild().addRoleToMember(event.getMember(), role).queue();
+
+        System.out.println(event.getMember().getEffectiveName() + " joined. Count:" + event.getGuild().getMemberCount());
     }
 }
