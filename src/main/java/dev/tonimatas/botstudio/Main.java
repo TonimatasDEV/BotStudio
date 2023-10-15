@@ -1,6 +1,6 @@
-package dev.tonimatas;
+package dev.tonimatas.botstudio;
 
-import dev.tonimatas.listeners.GuildMemberJoinListener;
+import dev.tonimatas.botstudio.listeners.GuildMemberJoinListener;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
