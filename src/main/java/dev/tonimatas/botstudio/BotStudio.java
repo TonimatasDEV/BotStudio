@@ -8,9 +8,15 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-public class Main {
+public class BotStudio {
+    public static Logger logger = LogManager.getLogManager().getLogger("Server");
+
     public static void main(String[] args) {
+        long time = System.currentTimeMillis();
+
         File file = new File("key.txt");
 
         Scanner scanner;
@@ -31,5 +37,6 @@ public class Main {
         builder.setActivity(Activity.playing("Bot The Game"));
 
         builder.build();
+        logger.info("Done (" + ((double) (System.currentTimeMillis() - time)/1000) + "s)!");
     }
 }
