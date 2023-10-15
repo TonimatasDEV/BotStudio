@@ -1,4 +1,4 @@
-package dev.tonimatas.listeners;
+package dev.tonimatas.botstudio.listeners;
 
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;

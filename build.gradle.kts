@@ -22,6 +22,6 @@ dependencies {
 
 tasks.withType<Jar> {
     manifest.attributes(
-        "Main-Class" to "dev.tonimatas.Main"
+        "Main-Class" to "dev.tonimatas.botstudio.Main"
     )
 }
