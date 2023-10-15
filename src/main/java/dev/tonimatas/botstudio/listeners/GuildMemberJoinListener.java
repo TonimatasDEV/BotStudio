@@ -1,5 +1,6 @@
 package dev.tonimatas.botstudio.listeners;
 
+import dev.tonimatas.botstudio.BotStudio;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -17,6 +18,6 @@ public class GuildMemberJoinListener extends ListenerAdapter {
         if (role == null) return;
         event.getGuild().addRoleToMember(event.getMember(), role).queue();
 
-        System.out.println(event.getMember().getEffectiveName() + " joined. Count:" + event.getGuild().getMemberCount());
+        BotStudio.logger.info(event.getMember().getEffectiveName() + " joined. Count:" + event.getGuild().getMemberCount());
     }
 }
