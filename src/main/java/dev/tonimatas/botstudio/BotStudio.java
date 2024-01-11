@@ -33,12 +33,28 @@ public class BotStudio {
 
         File file = new File("key.txt");
 
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                logger.severe("You need to add key file in the file \"key.txt\".");
+                Runtime.getRuntime().halt(0);
+            } catch (IOException e) {
+                logger.severe("Error on create key file.");
+                Runtime.getRuntime().halt(0);
+            }
+        }
+
         Scanner scanner;
 
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+
+        if (!scanner.hasNext()) {
+            logger.severe("You need to add key file in the file \"key.txt\".");
+            Runtime.getRuntime().halt(0);
         }
 
         JDABuilder builder = JDABuilder.createDefault(scanner.next());
