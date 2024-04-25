@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation("net.dv8tion:JDA:5.0.0-beta.19")
+    implementation("net.dv8tion:JDA:5.0.0-beta.23")
 }
 
 tasks.withType<Jar> {

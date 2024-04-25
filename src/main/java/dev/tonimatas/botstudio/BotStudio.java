@@ -31,12 +31,12 @@ public class BotStudio {
             logger.info("Exception:" + e.getMessage());
         }
 
-        File file = new File("key.txt");
+        File file = new File("token.txt");
 
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                logger.severe("You need to add key file in the file \"key.txt\".");
+                logger.severe("You need to add key file in the file \"token.txt\".");
                 Runtime.getRuntime().halt(0);
             } catch (IOException e) {
                 logger.severe("Error on create key file.");
@@ -49,11 +49,12 @@ public class BotStudio {
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            logger.severe("Error on read the token file.");
+            throw new RuntimeException();
         }
 
         if (!scanner.hasNext()) {
-            logger.severe("You need to add key file in the file \"key.txt\".");
+            logger.severe("You need to add key file in the file \"token.txt\".");
             Runtime.getRuntime().halt(0);
         }
 
