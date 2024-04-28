@@ -4,42 +4,30 @@ import dev.tonimatas.botstudio.listeners.GuildMemberJoinListener;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.internal.utils.JDALogger;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 public class BotStudio {
-    public static Logger logger = Logger.getLogger("Server");
+    public static Logger logger = JDALogger.getLog(BotStudio.class);
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void main(String[] args) {
         long time = System.currentTimeMillis();
-
-        new File("logs").mkdir();
-
-        try {
-            FileHandler fileHandler = new FileHandler("logs/latest.txt");
-            logger.addHandler(fileHandler);
-            SimpleFormatter simpleFormatter = new SimpleFormatter();
-            fileHandler.setFormatter(simpleFormatter);
-        } catch (SecurityException | IOException e) {
-            logger.info("Exception:" + e.getMessage());
-        }
 
         File file = new File("token.txt");
 
         if (!file.exists()) {
             try {
                 file.createNewFile();
-                logger.severe("You need to add key file in the file \"token.txt\".");
+                logger.error("You need to add key file in the file \"token.txt\".");
                 Runtime.getRuntime().halt(0);
             } catch (IOException e) {
-                logger.severe("Error on create key file.");
+                logger.error("Error on create key file.");
                 Runtime.getRuntime().halt(0);
             }
         }
@@ -49,17 +37,16 @@ public class BotStudio {
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
-            logger.severe("Error on read the token file.");
+            logger.error("Error on read the token file.");
             throw new RuntimeException();
         }
 
         if (!scanner.hasNext()) {
-            logger.severe("You need to add key file in the file \"token.txt\".");
+            logger.error("You need to add key file in the file \"token.txt\".");
             Runtime.getRuntime().halt(0);
         }
 
         JDABuilder builder = JDABuilder.createDefault(scanner.next());
-
 
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.setBulkDeleteSplittingEnabled(false);
@@ -68,6 +55,6 @@ public class BotStudio {
         builder.setActivity(Activity.playing("Bot The Game"));
 
         builder.build();
-        logger.info("Done (" + ((double) (System.currentTimeMillis() - time)/1000) + "s)!");
+        logger.info("Done ({}s)!", (float) ((System.currentTimeMillis() - time) / 1000));
     }
 }
