@@ -18,6 +18,6 @@ public class GuildMemberJoinListener extends ListenerAdapter {
         if (role == null) return;
         event.getGuild().addRoleToMember(event.getMember(), role).queue();
 
-        BotStudio.logger.info(event.getMember().getEffectiveName() + " joined. Count:" + event.getGuild().getMemberCount());
+        BotStudio.logger.info("{} joined. Count:{}", event.getMember().getEffectiveName(), event.getGuild().getMemberCount());
     }
 }
