@@ -1,9 +1,13 @@
 package dev.tonimatas.botstudio;
 
 import dev.tonimatas.botstudio.listeners.GuildMemberJoinListener;
+import dev.tonimatas.botstudio.listeners.SlashCommandListener;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction;
 import net.dv8tion.jda.internal.utils.JDALogger;
 import org.slf4j.Logger;
 
@@ -51,10 +55,15 @@ public class BotStudio {
         builder.enableIntents(GatewayIntent.GUILD_MEMBERS);
         builder.setBulkDeleteSplittingEnabled(false);
 
-        builder.addEventListeners(new GuildMemberJoinListener());
+        builder.addEventListeners(new GuildMemberJoinListener(), new SlashCommandListener());
         builder.setActivity(Activity.playing("Bot The Game"));
 
-        builder.build();
+        JDA jda = builder.build();
+
+        CommandListUpdateAction commands = jda.updateCommands();
+        commands.addCommands(Commands.slash("ping", "See what ping you have to the bot."));
+        commands.queue();
+        
         logger.info("Done ({}s)!", (float) ((System.currentTimeMillis() - time) / 1000));
     }
 }
