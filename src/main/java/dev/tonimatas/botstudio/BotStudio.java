@@ -2,6 +2,7 @@ package dev.tonimatas.botstudio;
 
 import dev.tonimatas.botstudio.listeners.GuildMemberJoinListener;
 import dev.tonimatas.botstudio.listeners.SlashCommandListener;
+import dev.tonimatas.botstudio.threads.DeleteOldForums;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 
 public class BotStudio {
     public static Logger logger = JDALogger.getLog(BotStudio.class);
+    public static JDA jda = null;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void main(String[] args) {
@@ -58,11 +60,13 @@ public class BotStudio {
         builder.addEventListeners(new GuildMemberJoinListener(), new SlashCommandListener());
         builder.setActivity(Activity.playing("Bot The Game"));
 
-        JDA jda = builder.build();
+        jda = builder.build();
 
         CommandListUpdateAction commands = jda.updateCommands();
         commands.addCommands(Commands.slash("ping", "See what ping you have to the bot."));
         commands.queue();
+
+        DeleteOldForums.startThread();
         
         logger.info("Done ({}s)!", (float) ((System.currentTimeMillis() - time) / 1000));
     }
