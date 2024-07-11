@@ -13,9 +13,7 @@ import (
 	"github.com/disgoorg/snowflake/v2"
 	"log"
 	"os"
-	"os/signal"
 	"strings"
-	"syscall"
 )
 
 type Config struct {
@@ -40,16 +38,6 @@ func main() {
 
 	log.Println("Done!")
 
-	go func() {
-		stopChan := make(chan os.Signal, 1)
-		signal.Notify(stopChan, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
-
-		select {
-		case <-stopChan:
-			stop(client)
-		}
-	}()
-
 	inputReader := bufio.NewReader(os.Stdin)
 
 	for {
@@ -62,7 +50,9 @@ func main() {
 		}
 
 		if command == "exit" || command == "stop" {
-			stop(client)
+			log.Println("BotStudio stopped successfully.")
+			client.Close(context.TODO())
+			os.Exit(0)
 		}
 
 		log.Println("Command:", command)
@@ -82,12 +72,6 @@ func readConfig(filename string) Config {
 	}
 
 	return config
-}
-
-func stop(client bot.Client) {
-	log.Println("BotStudio stopped successfully.")
-	client.Close(context.TODO())
-	os.Exit(0)
 }
 
 func onGuildMemberJoin(event *events.GuildMemberJoin) {
