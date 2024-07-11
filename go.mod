@@ -1,4 +1,4 @@
-module BotStudio
+module github.com/TonimatasDEV/BotStudio
 
 go 1.23rc1
 
