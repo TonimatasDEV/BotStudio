@@ -143,6 +143,8 @@ func deleteOldForums(client bot.Client) {
 					Embeds: []discord.Embed{embed},
 				})
 			}
+
+			time.Sleep(1 * time.Hour)
 		}
 	}
 }
