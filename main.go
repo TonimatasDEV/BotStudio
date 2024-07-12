@@ -14,6 +14,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 )
 
 type Config struct {
@@ -35,6 +36,8 @@ func main() {
 	if err = client.OpenGateway(context.TODO()); err != nil {
 		panic(err)
 	}
+
+	go deleteOldForums(client)
 
 	log.Println("Done!")
 
@@ -96,4 +99,50 @@ func onGuildMemberJoin(event *events.GuildMemberJoin) {
 	}
 
 	log.Printf("%s joined. Count: %d", event.Member.User.Username, guild.ApproximateMemberCount)
+}
+
+func deleteOldForums(client bot.Client) {
+	log.Println("Delete old forum thread is enabled.")
+
+	forumId, _ := snowflake.Parse("1021143740942913638")
+	issuesId, _ := snowflake.Parse("1228732115529765007")
+	channel, _ := client.Rest().GetChannel(forumId)
+
+	if channel.Type() == discord.ChannelTypeGuildForum {
+		var before time.Time
+
+		for {
+			threads, _ := client.Rest().GetPublicArchivedThreads(channel.ID(), before, 0)
+
+			for _, thread := range threads.Threads {
+				if time.Now().Sub(thread.CreatedAt()) < 10*24*time.Hour {
+					continue
+				}
+
+				err := client.Rest().DeleteChannel(thread.ID())
+
+				if err != nil {
+					log.Println("Error deleting thread", thread.Name())
+				}
+
+				log.Println("Deleted thread", thread.Name())
+
+				botUser, _ := client.Rest().GetCurrentUser("")
+
+				embed := discord.Embed{
+					Author: &discord.EmbedAuthor{
+						Name:    "BotStudio",
+						IconURL: *botUser.AvatarURL(),
+					},
+					Title:       thread.Name(),
+					Description: "Thread closed.",
+					Color:       0x525050,
+				}
+
+				_, err = client.Rest().CreateMessage(issuesId, discord.MessageCreate{
+					Embeds: []discord.Embed{embed},
+				})
+			}
+		}
+	}
 }
