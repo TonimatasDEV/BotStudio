@@ -30,11 +30,11 @@ func main() {
 	)
 
 	if err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	if err = client.OpenGateway(context.TODO()); err != nil {
-		panic(err)
+		log.Fatalln(err)
 	}
 
 	go deleteOldForums(client)
