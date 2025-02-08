@@ -115,10 +115,6 @@ func deleteOldForums(client bot.Client) {
 			threads, _ := client.Rest().GetPublicArchivedThreads(channel.ID(), before, 0)
 
 			for _, thread := range threads.Threads {
-				if time.Now().Sub(thread.CreatedAt()) < 10*24*time.Hour {
-					continue
-				}
-
 				err := client.Rest().DeleteChannel(thread.ID())
 
 				if err != nil {
