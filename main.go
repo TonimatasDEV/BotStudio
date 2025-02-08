@@ -144,7 +144,7 @@ func deleteOldForums(client bot.Client) {
 				})
 			}
 
-			time.Sleep(1 * time.Hour)
+			time.Sleep(5 * time.Minute)
 		}
 	}
 }
