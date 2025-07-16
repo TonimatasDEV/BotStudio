@@ -43,7 +43,7 @@ tasks.compileJava {
 }
 
 tasks.jar {
-    dependsOn("shadowJar")
+    finalizedBy(tasks.shadowJar)
     archiveClassifier.set("plain")
 }
 
