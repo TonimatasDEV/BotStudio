@@ -8,18 +8,19 @@ class AutoRoleListener : ListenerAdapter() {
     // Real
     //var channelId = "835907242544726057"
     //var roleId = "835907987641729064"
-    
+
     // Testing
-    var channelId = "1386794908421193919"
-    var roleId = "1386794676610273420"
-    
+    val channelId = "1386794908421193919"
+    val roleId = "1386794676610273420"
+
     override fun onGuildMemberJoin(event: GuildMemberJoinEvent) {
         val guild = event.guild
         val channel = guild.getTextChannelById(channelId)
         val role = guild.getRoleById(roleId)
         val member = event.member
 
-        channel?.sendMessage(member.asMention + " Welcome to TonimatasDEV Studios! We already are: " + guild.memberCount + "!")?.queue()
+        channel?.sendMessage(member.asMention + " Welcome to TonimatasDEV Studios! We already are: " + guild.memberCount + "!")
+            ?.queue()
 
         if (role != null) {
             guild.addRoleToMember(member, role).queue()

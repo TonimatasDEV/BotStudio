@@ -19,10 +19,10 @@ import java.io.IOException
 import java.util.*
 
 class Main {
-    init { 
+    init {
         val time = System.currentTimeMillis()
         val file = File("token.txt")
-        
+
         if (!file.exists()) {
             try {
                 file.createNewFile()
@@ -63,29 +63,29 @@ class Main {
         cjda.registerCommands(
             PingCommand()
         ).init().queue()
-        
+
         jda.updateCommands().addCommands(Commands.slash("ping", "See what ping you have to the bot.")).queue()
         jda.awaitReady()
-        
+
         addStopHook(jda)
 
         logger.info("Done ({}s)!", ((System.currentTimeMillis() - time) / 1000).toFloat())
     }
-    
+
     fun addStopHook(jda: JDA) {
         Runtime.getRuntime().addShutdownHook(Thread {
             logger.info("Stopping...")
-            
+
             jda.shutdown()
             jda.awaitShutdown()
-            
+
             logger.info("Stopped!")
         })
     }
-    
+
     companion object {
         var logger: Logger = JDALogger.getLog(Main::class.java)
-        
+
         @JvmStatic
         fun main(args: Array<String>) {
             Main()
