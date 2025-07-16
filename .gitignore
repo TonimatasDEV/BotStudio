@@ -1,7 +1,5 @@
-# Project exclude paths
-/.gradle/
-/build/
-/build/classes/java/main/
-/.idea/
-key.txt
-/logs/
+.gradle
+.idea
+.kotlin
+build
+run
