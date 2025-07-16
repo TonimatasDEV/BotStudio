@@ -1,6 +1,3 @@
+[![Hits](https://hits.sh/github.com/tonimatasdev/botstudio.svg?view=today-total&label=Views)](https://hits.sh/github.com/tonimatasdev/botstudio/)
 # BotStudio
-Basic bot for my discord server.
-
-**Link:** https://discord.gg/KXTxSgW4XT
-
-I replaced it with [this](https://github.com/TonimatasDEV/BotStudio)
+It is a discord bot for my community. You can join [here](https://discord.gg/5u3Ujgc8hy).
