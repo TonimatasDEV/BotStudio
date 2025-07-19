@@ -1,7 +1,7 @@
 package dev.tonimatas.botstudio.data
 
 import java.io.File
-import java.util.Properties
+import java.util.*
 
 object BotData {
     val propertiesFile = File(dataFolder(), "data.properties")
@@ -9,10 +9,10 @@ object BotData {
 
     fun runProperties() {
         properties = Properties()
-        
+
         if (!propertiesFile.exists()) {
             propertiesFile.createNewFile()
-            
+
             properties!!.setProperty("ticketNumber", "0")
             save()
         }
@@ -20,7 +20,7 @@ object BotData {
         properties!!.load(propertiesFile.inputStream())
         save()
     }
-    
+
     fun increaseTicketNumber(): Int {
         val ticketNumber = properties!!.getProperty("ticketNumber", "0")!!.toInt()
         val increased = ticketNumber + 1
@@ -35,10 +35,10 @@ object BotData {
         if (!dataFolder.exists()) {
             dataFolder.mkdirs()
         }
-        
+
         return dataFolder
     }
-    
+
     fun save() {
         properties!!.store(propertiesFile.outputStream(), "BotStudio Data")
     }
