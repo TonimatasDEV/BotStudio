@@ -1,6 +1,7 @@
 package dev.tonimatas.botstudio
 
 import dev.tonimatas.botstudio.commands.PingCommand
+import dev.tonimatas.botstudio.data.BotData
 import dev.tonimatas.botstudio.listeners.AutoRoleListener
 import dev.tonimatas.botstudio.listeners.ForumArchiveListener
 import dev.tonimatas.botstudio.listeners.TicketListener
@@ -22,6 +23,7 @@ import java.util.*
 class Main {
     init {
         val time = System.currentTimeMillis()
+        BotData.runProperties()
         val file = File("token.txt")
 
         if (!file.exists()) {
