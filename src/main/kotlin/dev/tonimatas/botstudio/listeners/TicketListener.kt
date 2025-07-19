@@ -38,7 +38,7 @@ class TicketListener : ListenerAdapter() {
 
                 channel.sendMessageEmbeds(embed).addComponents(
                     ActionRow.of(
-                        defaultButton(ButtonIds.CREATE_TICKET, "Create ticket", "📩")
+                        defaultButton(ButtonIds.CREATE, "Create ticket", "📩")
                     )).queue { message -> 
                         this.message = message 
                     } 
@@ -52,7 +52,7 @@ class TicketListener : ListenerAdapter() {
         
         if (buttonId != null) {
             when (buttonId) {
-                ButtonIds.CREATE_TICKET -> {
+                ButtonIds.CREATE -> {
                     val ticketNumber = BotData.increaseTicketNumber()
                     val formatted = ticketNumber.toString().padStart(4, '0')
                     
@@ -64,7 +64,7 @@ class TicketListener : ListenerAdapter() {
 
                         it.sendMessageEmbeds(embed).addComponents(
                             ActionRow.of(
-                                defaultButton(ButtonIds.CLOSE_TICKET, "Close", "🔒")
+                                defaultButton(ButtonIds.CLOSE, "Close", "🔒")
                             )
                         ).queue()
 
@@ -72,7 +72,7 @@ class TicketListener : ListenerAdapter() {
                     }
                 }
                 
-                ButtonIds.CLOSE_TICKET -> {
+                ButtonIds.CLOSE -> {
                     event.deferEdit().queue()
                     event.channel.sendMessage("Are you sure you would like to close this ticket?").addComponents(
                         ActionRow.of(
@@ -82,12 +82,20 @@ class TicketListener : ListenerAdapter() {
                 }
                 
                 ButtonIds.CLOSE_CONFIRMATION -> {
-                    
+                    // TODO
                 }
                 
                 ButtonIds.CANCEL_CLOSE -> {
                     event.deferEdit().queue()
                     event.message.delete().queue()
+                }
+                
+                ButtonIds.OPEN -> {
+                    // TODO
+                }
+                
+                ButtonIds.DELETE -> {
+                    // TODO
                 }
             }
         }
@@ -95,10 +103,12 @@ class TicketListener : ListenerAdapter() {
     
     companion object {
         enum class ButtonIds(val id: String) {
-            CREATE_TICKET("create-ticket"),
-            CLOSE_TICKET("close-ticket"),
-            CLOSE_CONFIRMATION("ticket-close-confirmation"),
-            CANCEL_CLOSE("ticket-cancel-close");
+            CREATE("botstudio-ticket-create"),
+            CLOSE("botstudio-ticket-close"),
+            CLOSE_CONFIRMATION("botstudio-ticket-close-confirmation"),
+            CANCEL_CLOSE("botstudio-ticket-cancel-close"),
+            OPEN("botstudio-ticket-open"),
+            DELETE("botstudio-ticket-delete"),;
         }
         
         fun defaultEmbed(jda: JDA, description: String): MessageEmbed {
