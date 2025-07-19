@@ -72,7 +72,7 @@ class Main {
 
         addStopHook(jda)
 
-        logger.info("Done ({}s)!", ((System.currentTimeMillis() - time) / 1000).toFloat())
+        logger.info("Done! ({}s)", ((System.currentTimeMillis() - time) / 1000).toFloat())
     }
 
     fun addStopHook(jda: JDA) {
