@@ -9,7 +9,6 @@ import dev.tonimatas.cjda.CJDABuilder
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
-import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.utils.MemberCachePolicy
 import net.dv8tion.jda.api.utils.cache.CacheFlag
@@ -67,7 +66,6 @@ class Main {
             PingCommand()
         ).init().queue()
 
-        jda.updateCommands().addCommands(Commands.slash("ping", "See what ping you have to the bot.")).queue()
         jda.awaitReady()
 
         addStopHook(jda)

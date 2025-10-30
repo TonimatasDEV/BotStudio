@@ -19,7 +19,7 @@ class PingCommand : SlashCommand {
     }
 
     override fun getDescription(): String {
-        return "Pong!"
+        return "See what ping you have to the bot."
     }
 
     override fun getContexts(): Set<InteractionContextType> {
