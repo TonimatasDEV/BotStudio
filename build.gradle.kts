@@ -4,8 +4,8 @@ import kotlin.io.path.exists
 plugins {
     java
     application
-    kotlin("jvm") version "2.2.20"
-    id("com.gradleup.shadow") version "9.2.2"
+    `embedded-kotlin`
+    id("com.gradleup.shadow") version "9.3.0"
 }
 
 group = "dev.tonimatas"
@@ -17,12 +17,12 @@ repositories {
 }
 
 dependencies {
-    implementation("net.dv8tion:JDA:6.0.0") {
+    implementation("net.dv8tion:JDA:6.1.2") {
         exclude(module = "opus-java")
     }
 
     // https://github.com/qos-ch/logback/releases
-    implementation("ch.qos.logback:logback-classic:1.5.19")
+    implementation("ch.qos.logback:logback-classic:1.5.21")
     implementation("dev.tonimatas:CJDA:1.0.3")
 }
 
