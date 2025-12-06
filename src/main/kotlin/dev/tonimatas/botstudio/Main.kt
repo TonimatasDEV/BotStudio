@@ -29,11 +29,11 @@ class Main {
             try {
                 file.createNewFile()
                 logger.error("You need to add key file in the file \"token.txt\".")
-                Runtime.getRuntime().halt(0)
             } catch (e: IOException) {
                 logger.error("Error on create key file: {}", e.message)
-                Runtime.getRuntime().halt(0)
             }
+
+            throw RuntimeException("Invalid token")
         }
 
         val scanner: Scanner
@@ -41,13 +41,13 @@ class Main {
         try {
             scanner = Scanner(file)
         } catch (e: FileNotFoundException) {
-            logger.error("Error on read the token file: {}", e.message)
-            throw RuntimeException()
+            logger.error("Error reading the token file: {}", e.message)
+            throw RuntimeException("Invalid token")
         }
 
         if (!scanner.hasNext()) {
             logger.error("You need to add key file in the file \"token.txt\".")
-            Runtime.getRuntime().halt(0)
+            throw RuntimeException("Empty token")
         }
 
         val jda = JDABuilder.createDefault(scanner.next())
