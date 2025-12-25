@@ -9,7 +9,7 @@ import java.util.function.Function
 class PingCommand : SlashCommand {
     override fun execute(interaction: SlashCommandInteraction) {
         val time = System.currentTimeMillis()
-        interaction.reply("Pong!").setEphemeral(true).flatMap(Function { v: InteractionHook ->
+        interaction.reply("Pong!").setEphemeral(true).flatMap(Function { _: InteractionHook ->
             interaction.hook.editOriginalFormat("Pong: %d ms", System.currentTimeMillis() - time)
         }).queue()
     }

@@ -20,6 +20,8 @@ import java.io.IOException
 import java.util.*
 
 class Main {
+    var logger: Logger = JDALogger.getLog(Main::class.java)
+
     init {
         val time = System.currentTimeMillis()
         BotData.runProperties()
@@ -85,8 +87,6 @@ class Main {
     }
 
     companion object {
-        var logger: Logger = JDALogger.getLog(Main::class.java)
-
         @JvmStatic
         fun main(args: Array<String>) {
             Main()

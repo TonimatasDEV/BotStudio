@@ -1,10 +1,13 @@
 package dev.tonimatas.botstudio.listeners
 
-import dev.tonimatas.botstudio.Main
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
+import net.dv8tion.jda.internal.utils.JDALogger
+import org.slf4j.Logger
 
 class AutoRoleListener : ListenerAdapter() {
+    var logger: Logger = JDALogger.getLog(AutoRoleListener::class.java)
+    
     // Real
     //var channelId = "835907242544726057"
     //var roleId = "835907987641729064"
@@ -26,6 +29,6 @@ class AutoRoleListener : ListenerAdapter() {
             guild.addRoleToMember(member, role).queue()
         }
 
-        Main.Companion.logger.info("{} joined. Count: {}", member.effectiveName, guild.memberCount)
+        logger.info("{} joined. Count: {}", member.effectiveName, guild.memberCount)
     }
 }
