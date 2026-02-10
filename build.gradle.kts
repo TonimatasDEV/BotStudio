@@ -23,7 +23,7 @@ dependencies {
     }
 
     // https://github.com/qos-ch/logback/releases
-    implementation("ch.qos.logback:logback-classic:1.5.24")
+    implementation("ch.qos.logback:logback-classic:1.5.29")
     // https://github.com/Revxrsal/Lamp/releases
     implementation("io.github.revxrsal:lamp.common:4.0.0-rc.14")
     implementation("io.github.revxrsal:lamp.jda:4.0.0-rc.14")
