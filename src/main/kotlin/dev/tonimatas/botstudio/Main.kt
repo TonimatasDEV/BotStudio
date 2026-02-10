@@ -5,7 +5,6 @@ import dev.tonimatas.botstudio.data.BotData
 import dev.tonimatas.botstudio.listeners.AutoRoleListener
 import dev.tonimatas.botstudio.listeners.ForumArchiveListener
 import dev.tonimatas.botstudio.listeners.TicketListener
-import dev.tonimatas.cjda.CJDABuilder
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.entities.Activity
@@ -14,6 +13,9 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy
 import net.dv8tion.jda.api.utils.cache.CacheFlag
 import net.dv8tion.jda.internal.utils.JDALogger
 import org.slf4j.Logger
+import revxrsal.commands.jda.JDALamp
+import revxrsal.commands.jda.JDAVisitors
+import revxrsal.commands.jda.actor.SlashCommandActor
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -62,11 +64,10 @@ class Main {
             .setAutoReconnect(true)
             .build()
 
-        val cjda = CJDABuilder.create(jda)
+        val lamp = JDALamp.builder<SlashCommandActor?>().build()
 
-        cjda.registerCommands(
-            PingCommand()
-        ).init().queue()
+        lamp.register(PingCommand())
+        lamp.accept(JDAVisitors.slashCommands(jda))
 
         jda.awaitReady()
 

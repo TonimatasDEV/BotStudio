@@ -1,28 +1,20 @@
 package dev.tonimatas.botstudio.commands
 
-import dev.tonimatas.cjda.slash.SlashCommand
-import net.dv8tion.jda.api.interactions.InteractionContextType
 import net.dv8tion.jda.api.interactions.InteractionHook
-import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction
+import revxrsal.commands.annotation.Command
+import revxrsal.commands.annotation.Description
+import revxrsal.commands.jda.actor.SlashCommandActor
+import revxrsal.commands.jda.annotation.CommandPermission
 import java.util.function.Function
 
-class PingCommand : SlashCommand {
-    override fun execute(interaction: SlashCommandInteraction) {
+class PingCommand {
+    @Command("ping")
+    @Description("See what ping you have to the bot.")
+    @CommandPermission
+    fun execute(actor: SlashCommandActor) {
         val time = System.currentTimeMillis()
-        interaction.reply("Pong!").setEphemeral(true).flatMap(Function { _: InteractionHook ->
-            interaction.hook.editOriginalFormat("Pong: %d ms", System.currentTimeMillis() - time)
+        actor.replyToInteraction("Pong!").setEphemeral(true).flatMap(Function { _: InteractionHook ->
+            actor.hook().editOriginalFormat("Pong: %d ms", System.currentTimeMillis() - time)
         }).queue()
-    }
-
-    override fun getName(): String {
-        return "ping"
-    }
-
-    override fun getDescription(): String {
-        return "See what ping you have to the bot."
-    }
-
-    override fun getContexts(): Set<InteractionContextType> {
-        return InteractionContextType.ALL
     }
 }
