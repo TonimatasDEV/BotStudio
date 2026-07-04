@@ -4,6 +4,7 @@ import dev.tonimatas.botstudio.commands.PingCommand
 import dev.tonimatas.botstudio.data.BotData
 import dev.tonimatas.botstudio.listeners.AutoRoleListener
 import dev.tonimatas.botstudio.listeners.ForumArchiveListener
+import dev.tonimatas.botstudio.listeners.SpamListener
 import dev.tonimatas.botstudio.listeners.TicketListener
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -59,7 +60,7 @@ class Main {
             .enableCache(CacheFlag.entries)
             .setBulkDeleteSplittingEnabled(false)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
-            .addEventListeners(AutoRoleListener(), ForumArchiveListener(), TicketListener())
+            .addEventListeners(AutoRoleListener(), ForumArchiveListener(), TicketListener(), SpamListener())
             .setActivity(Activity.playing("Bot The Game"))
             .setAutoReconnect(true)
             .build()
